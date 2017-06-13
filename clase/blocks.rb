@@ -1,5 +1,9 @@
 def imprime_pls
-  yield
+  if block_given?
+    yield
+  else
+    puts "No es un block"
+  end
 end
 
 imprime_pls { puts "The cake is a lie" }

@@ -300,7 +300,7 @@ Booooring! Tenemos que escribirlos siempre?
 
 ---
 
-# Lambdas - Procs - Blocks
+# Blocks - Procs - Lambdas
 
 Lo se, wtf...
 
@@ -308,37 +308,64 @@ Lo se, wtf...
 
 # Blocks (Bloques)
 
-* No es un objeto... *
+**No son objetos...**
 
-Pequeños métodos anónimos que pueden ser pasados a métodos.
+Pequeños padacitos de código que pueden ser pasados como argumentos a métodos.
 
 Los delimitan las palabras `do / end` o las llaves `{ }`
 
-Pueden tener varios argumentos que se definen entre pipes `|arg|`
-
 Como puede trabajar un método con un bloque?
+
 `yield`
 
----
-
-# Lambdas
-
-```ruby
-
-```
-
 ???
+Los pasas como argumento para una función
 
 ---
 
 # Procs
 
+**Si son objetos!**
+
+Su nombre viene de `procedure`
+
+```ruby
+def imprime_pls(&this_is_proc)
+  this_is_proc.call
+end
+
+imprime_pls { puts "The cake is a lie" }
+```
+
+???
+Es la manera de convertir blocks a objetos.
+Usado cuando necesitas mas argumentos.
+
 ---
 
-## Ejercicio
+# Lambdas
+
+**También son objetos!**
+
+* Se parecen muchísimo a las funciones. Son como Procs en esteroides,
+de hecho, son un objeto de tipo proc.
+* Se usan muy poco.
+* Son como funciones anonimas.
+* Te perminten usar `return`.
+* Verifican que pases el numero correcto de argumentos.
+
+```ruby
+proc = Proc.new { puts "Hola Sparrow" }
+lam = lambda { puts "Hola Sparrow" }
+
+proc.class # returns 'Proc'
+lam.class  # returns 'Proc'
+```
+
+???
+Los javascripts lo pueden relacionar con funciones anónimas.
 
 ---
-
 
 # ¿Preguntas?
 
