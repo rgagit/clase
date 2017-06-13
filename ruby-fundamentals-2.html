@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Ruby Fundamentals</title>
+    <meta charset="utf-8">
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+
+      body { font-family: 'Droid Serif'; }
+      h1 {
+        margin-top: 0;
+      }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: normal;
+      }
+      ul {
+        margin-left: 100px;
+        width: fit-content;
+      }
+      li {
+        text-align: left;
+        width: auto;
+      }
+      code {
+        text-align: left;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+    </style>
+  </head>
+  <body>
+    <textarea id="source" class="center middle">
+layout: true
+background-image: url(bg1.png)
+background-position: left bottom
+class: center, middle
+
+---
+
+
+# Ruby Fundamentals
+### Second part (the best part)
+
+???
+Beneficios del lenguage.
+
+---
+# Ruby Fundamentals
+* _Data types_
+* _Methods_
+* Arrays
+* Hashes
+* Symbols
+* Accessors
+* Lambdas - Procs - Blocks
+
+---
+
+# Arrays (arreglos) y Hashes
+
+
+Colecciones.
+Ambos son usados para guardar y extraer datos.
+
+---
+# Arrays (Arreglos)
+Colección de datos - Ordenada - Indexada
+
+```ruby
+> array = ["First element", 2, :true]
+=> ["First element", 2, :true]
+```
+
+```ruby
+> array[1]
+=> 2
+
+> array[-3]
+=> "First element"
+```
+
+???
+Cada elemento del arreglo tiene un index.
+
+Empieza a acomodarlos desde el 0.
+Cuando se hace referencia al índice negativo,empieza a contar desde el último
+elemento del arreglo hacia atrás.
+
+El orden importa.
+---
+
+# Arrays (Arreglos)
+Agregar elementos al arreglo.
+
+```ruby
+> array = ["First element", 2, :true]
+=> ["First element", 2, :true]
+
+> array << :hello
+=> ["First element", 2, :true, :hello]
+
+array[4] = "long array"
+=> "long array"
+
+> array
+=> ["First element", 2, :true, :hello, "long array"]
+```
+
+---
+
+# Arrays (Arreglos)
+
+Iterar arreglos con `each`.
+```ruby
+> list = ['Laura', 'Ever', 'Jose', 'Adriana']
+
+> list.each do |name|
+    puts "El nombre es #{name}"
+  end
+
+El nombre es Laura
+El nombre es Ever
+El nombre es Jose
+El nombre es Adriana
+=> ["Laura", "Ever", "Jose", "Adriana"]
+```
+???
+
+Para poder iterar vamos a llamar un método y vamos a abrir un bloque de codigo.
+Aun no vemos bien los bloques de código pero después llegaremos a ellos.
+
+Vamos a colocar una variable que va a cambiar dependiendo del elemento
+que se esté ejecutando, se va a ejecutar el bloque por cada elemento del arreglo.
+
+For es el equivalente y si existe pero rara vez es usado.
+
+Ejemplo con join, multiplicación, sort, sort.reverse
+include?("Name"), first, last y sample
+
+---
+
+# Hashes
+Colección de datos - Llave y valor - No importa el orden
+
+```ruby
+> hash = {'key' => 'First element', 2 => :second, doge: ['such', :wow]}
+=> {"key"=>"First element", 2=>:second, :doge=>["such", :wow]}
+
+> hash["key"]
+=> "First element"
+
+> hash[2]
+=> :second
+
+> hash[:doge]
+=> ["such", :wow]
+```
+
+???
+Colección de datos - Llave y valor - No importa el orden
+
+Las llaves pueden ser cualquier tipo.
+
+como accederían a un elemento del array dentro del hash?
+---
+
+# Hashes
+
+Podemos agregar elementos sólo declarando una nueva llave y asignando un valor.
+
+```ruby
+> hash[:burn_them] = 'All'
+=> "All"
+
+> hash
+=> {"key"=>"First element", 2=>:second, :doge=>["such", :wow], :burn_them=>"All"}
+```
+
+---
+
+# Hashes
+
+Iterar sobre un hash.
+
+```ruby
+hash = { nombre: 'Ana', edad: 22, ocupacion: 'Ruby dev', nivel: 45.5 }
+=> {:nombre=>"Ana", :edad=>22, :ocupacion=>"Ruby dev", :nivel=>45.5}
+
+hash.each do |key, value|
+  puts "La llave #{key} tiene el valor #{value}"
+end
+
+La llave nombre tiene el valor Ana
+La llave edad tiene el valor 22
+La llave ocupacion tiene el valor Ruby dev
+La llave nivel tiene el valor 45.5
+=> {:nombre=>"Ana", :edad=>22, :ocupacion=>"Ruby dev", :nivel=>45.5}
+```
+
+???
+En vez de sólo una variable, va a haber dos, porque se envían dos argumentos al
+bloque en vez de uno. (Dos valores)
+
+Ejemplo con .has_key?, .keys, .values, .delete, empty?
+
+---
+
+# Symbols
+
+Cadena inmutable. Ocupa el mismo espacio en memoria.
+
+`:hi_im_a_symbol`
+
+Beneficios:
+  - Performance:
+  Si declaras el mismo string dos veces, se crean dos objetos y apuntan a objetos diferentes.
+  Si declaras el mismo simbolo dos veces, es reciclado y apuntan al mismo objeto.
+  - Comparaciones:
+  Ruby compara letra por letra las cadenas.
+  En simbolos, Ruby compara los object ID, si es el mismo, los objetos son iguales.
+
+???
+No son muy comunes en otros leguajes.
+
+Cuando usar simbolos:
+
+1. Cuando no se necesita modificar el string.
+2. Cuando no necesitas darle metodos al string.
+3. Cuando le quieres dar nombres a objetos.
+
+---
+
+# Alcances de variables en ruby
+
+```ruby
+meh =          'Soy local, me muero cuando termina mi bloque'
+@alive =       'Soy de instancia, existo en cada copia de la clase, pero no
+                tengo el mismo valor de las demás'
+@@like_a_sir = 'Soy de clase, existo durante todas las instancias de la clase'
+$master =      'Soy global, accesible desde cualquier parte del programa'
+```
+
+???
+Las variables de intancia reinician su valor cada vez que se manda llamar la clase.
+
+Ejemplo: @total
+---
+
+# Metodos Accesores
+
+```ruby
+class Persona
+  def initialize(name)
+    @nombre = name
+  end
+end
+
+ana = Persona.new("Ana Lucia")
+andrei = Persona.new("El Helo")
+```
+Las variables de instancia no pueden ser modificadas u observadas desde fuera
+del objeto.
+
+???
+crear metodo decir_nombre e imprimir desde el con:
+ana.decir_nombre
+
+Los metodos accesores deciden como podemos cambiar, leer o asignar una variable.
+
+---
+
+# Metodos Accesores
+
+Tenemos dos tipos.
+
+*Getter.* Leen propiedades
+
+*Setter.* Permiten escribir en las propiedades.
+
+_Codigo legible y natural_
+
+
+???
+modificar metodos, quitar get y set.
+
+Se puede pensar que es asignación por el igual pero en relidad se está
+mandando llamar el metodo nombre=
+
+---
+# Metodos Accesores
+Booooring! Tenemos que escribirlos siempre?
+
+`attr_accesor`
+
+`attr_reader`
+
+`attr_writer`
+
+---
+
+# Lambdas - Procs - Blocks
+
+Lo se, wtf...
+
+---
+
+# Blocks (Bloques)
+
+* No es un objeto... *
+
+Pequeños métodos anónimos que pueden ser pasados a métodos.
+
+Los delimitan las palabras `do / end` o las llaves `{ }`
+
+Pueden tener varios argumentos que se definen entre pipes `|arg|`
+
+Como puede trabajar un método con un bloque?
+`yield`
+
+---
+
+# Lambdas
+
+---
+
+# Procs
+
+---
+
+## Ejercicio
+
+---
+
+
+# ¿Preguntas?
+
+    </textarea>
+    <script src="https://remarkjs.com/downloads/remark-latest.min.js">
+    </script>
+    <script>
+      var slideshow = remark.create();
+    </script>
+  </body>
+</html>
