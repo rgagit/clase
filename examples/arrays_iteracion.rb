@@ -11,5 +11,5 @@ calificaciones = [10, 8, 9, 5, 8, 10, 8]
 
 
 # HINT: Existe un metodo para saber el tamaño de un objeto, buscalo!
-# El promedio debe ser similar a 8.28
+# El promedio debe ser similar a 8.28, tiene que llevar decimales.
 puts promedio
