@@ -1,22 +1,23 @@
 class Persona
+  attr_accessor :nombre
   def initialize(name)
     @nombre = name
   end
 
-  def get_nombre
-    @nombre
-  end
+  # def nombre
+  #   @nombre
+  # end
 
-  def set_nombre(nuevo_nombre)
-    @nombre = nuevo_nombre
-  end
+  # def nombre=(nuevo_nombre)
+  #   @nombre = nuevo_nombre
+  # end
 end
 
 ana = Persona.new("Ana Lucia")
 andrei = Persona.new("El Helo")
 
-puts andrei.get_nombre
+puts andrei.nombre
 
-andrei.set_nombre("Abelardo")
+andrei.nombre = "Abelardo"
 
-puts andrei.get_nombre
+puts andrei.nombre

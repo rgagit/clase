@@ -1,7 +1,8 @@
 class Persona
+  # No sirve :)
   def initialize(name)
     @nombre = name
-    # puts @nombre
+    puts @nombre
   end
 end
 
